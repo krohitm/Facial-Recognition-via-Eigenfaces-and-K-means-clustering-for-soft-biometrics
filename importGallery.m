@@ -1,15 +1,10 @@
-function[images] = importGallery()
+function[gallery] = importGallery()
 
 cd ('\\Client\H$\Documents\Courses\EMI\Project2\GallerySet');
-images = zeros(2500, 200);
+gallery = zeros(2500, 100);
 for i = 1:100
-    for j = 1:2
-        imageName = strcat('subject',num2str(i),'_img',num2str(j+1),'.pgm');
-        images(:,i*2 - 2 + j) = reshape(imread(imageName), [2500,1]);
-    end;
+    imageName = strcat('subject',num2str(i),'_img1.pgm');
+    gallery(:,i) = reshape(imread(imageName), [2500,1]);
 end;
-images = double(images);
+gallery = double(gallery);
 cd ('\\Client\H$\Documents\Courses\EMI\Project2');
-
-
-        
