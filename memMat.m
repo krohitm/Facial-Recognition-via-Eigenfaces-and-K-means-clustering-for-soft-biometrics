@@ -36,5 +36,5 @@ WCSS = 0;
 for i = 1:clusterCount
     WCSS = ...
         WCSS + (member_matrix(i,:) * (sum(((probes_weights - ...
-        repmat(Kcentroids(:,i), 1, sampleCount)).^2),2)).');
+        repmat(Kcentroids(:,i), 1, sampleCount)).^2),1)).');
 end;
