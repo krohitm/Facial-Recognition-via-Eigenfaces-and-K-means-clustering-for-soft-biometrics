@@ -4,6 +4,6 @@ gallery_weights = zeros(size(V,2), size(gallery, 2));
 for i = 1:size(gallery, 2)
     for j=1:size(V,2)
         w = V(:, j).' * (gallery(:, i) - M);
-        gallery_weights(j, i) = w;
+        gallery_weights(j, i) = w;      %features by samples
     end;
 end;
