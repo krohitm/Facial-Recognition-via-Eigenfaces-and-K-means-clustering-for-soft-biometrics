@@ -17,5 +17,5 @@ for i=10:10:100     %clusters for various no. of PCs
     %end;
     DI(i/10,1) = DunnIndex(probes_weights(1:i,:), member_matrix, ...
         Kcentroids,clusterCount, sampleCount);
-    FMI(i/10,1) = Fmeasure(member_matrix)
+    FMI(i/10,1) = Fmeasure(member_matrix);
 end;
