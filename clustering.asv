@@ -1,4 +1,4 @@
-function[member_matrix, Kcentroids, WCSS, DI, FMI] = clustering(probes_weights)   
+function[member_matrix, Kcentroids, WCSS, DI] = clustering(probes_weights)   
 
 %k-means clustering of data for soft biometric classification
 clusterCount = 2;   %dividing data into two genders 

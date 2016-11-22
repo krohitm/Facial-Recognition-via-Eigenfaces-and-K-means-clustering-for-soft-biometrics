@@ -1,4 +1,4 @@
-function[result, accuracy, member_matrix, Kcentroids, WCSS, DI] = runProgram()
+function[member_matrix, Kcentroids, WCSS, DI, FMI] = runProgram()
 
 %all the matrices represent features by samples form
 
@@ -10,5 +10,6 @@ probes_weights = probeWeightVectors(probes, V, M);
 [result, accuracy] = testing(probes_weights, gallery_weights);
 %accuracy = testingWOutReduction(probes, gallery);
 %sampleCount = size(probes,2);
-[member_matrix, Kcentroids, WCSS, DI] = clustering(probes_weights);
-plotIndices
+[member_matrix, Kcentroids, WCSS, DI, FMI] = clustering(probes_weights);
+
+%plotIndices
