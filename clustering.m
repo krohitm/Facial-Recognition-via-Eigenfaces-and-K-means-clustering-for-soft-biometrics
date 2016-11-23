@@ -1,11 +1,12 @@
 function[member_matrix, Kcentroids, WCSS, DI, FMI] = clustering(probes_weights)   
-
 %k-means clustering of data for soft biometric classification
-clusterCount = 2;   %dividing data into two genders 
+
+clusterCount = 2;   %dividing data into two clusters 
 sampleCount = size(probes_weights, 2);
 
 WCSS = zeros(10,1);
 DI = zeros(10,1);
+FMI = zeros(10,1);
 %WCSSmin = Inf;
 for i=10:10:100     %clusters for various no. of PCs
     kindex = randsample(1:size(probes_weights, 2), clusterCount);

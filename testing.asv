@@ -1,14 +1,13 @@
-function [accuracy] = testing(probes_weights, gallery_weights)
+function [result, accuracy] = testing(probes_weights, gallery_weights)
 %this function is to get the PCA project of data for different no of PCs,
-%and test the recognition rate for different no of PCs used for projections
-
+%and test the accuracy of 
 result = zeros(size(probes_weights,2),1);
 for numofPCs = 10:10:100
     for i = 1:size(probes_weights, 2)   %checking for all probes
         dmin = Inf;
         for j = 1:size(gallery_weights, 2)  %to compare each probe with complete gallery
-            d = abs((sum((probes_weights(1:numofPCs,i) ...
-                - gallery_weights(1:numofPCs,j)).^2).^0.5));
+            d = abs((sum((probes_weights(4:numofPCs+3,i) ...
+                - gallery_weights(4:numofPCs+3,j)).^2).^0.5));
             if d < dmin
                 dmin = d;
                 match = j;

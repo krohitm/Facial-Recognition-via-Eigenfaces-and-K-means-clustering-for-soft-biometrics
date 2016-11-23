@@ -1,4 +1,4 @@
-function[ID, Gender] = importSoft()
+function[Gender] = importSoft()
 %this function imports information for soft biometric clustering 
 
 filename = '\\Client\H$\Documents\Courses\EMI\Project2\Gender.txt';

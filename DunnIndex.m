@@ -1,5 +1,7 @@
 function [DI] = DunnIndex(probes_weights, member_matrix, Kcentroids,...
     clusterCount, sampleCount)
+%this function is to calculate Dunn's Index for the clusters
+%this is for internal validity of clusters for different no of PCs
 
 minDelta = Inf;
 for i=1:(clusterCount - 1)

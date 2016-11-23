@@ -1,4 +1,5 @@
-function[member_matrix, Kcentroids, WCSS, DI, FMI] = runProgram()
+function[member_matrix, Kcentroids, WCSS, DI, FMI, accuracy, ...
+    direct_accuracy] = runProgram()
 
 %all the matrices represent features by samples form
 
@@ -7,9 +8,9 @@ gallery = importGallery();
 gallery_weights = galleryWeightVectors(gallery, V, M);
 probes = importProbes();
 probes_weights = probeWeightVectors(probes, V, M);
-[result, accuracy] = testing(probes_weights, gallery_weights);
-%accuracy = testingWOutReduction(probes, gallery);
-%sampleCount = size(probes,2);
+%[result, accuracy] = ...
+accuracy = testing(probes_weights, gallery_weights);
+direct_accuracy = testingWOutReduction(probes, gallery);
 [member_matrix, Kcentroids, WCSS, DI, FMI] = clustering(probes_weights);
 
-%plotIndices
+plotIndices(DI, FMI);
