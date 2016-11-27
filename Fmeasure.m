@@ -3,7 +3,7 @@ function[F1] = Fmeasure(member_matrix)
 %it is being used for external validity of clustering for different no of
 %PCs
 
-probe_count = size(member_matrix,2);
+image_count = size(member_matrix,2);
 %cluster_num = size(member_matrix, 1);
 
 Gender = importSoft();
@@ -12,14 +12,14 @@ valueSet = [1:size(keySet,1)];
 mapObj  = containers.Map(keySet, valueSet);
 clusters = cell2mat(values( mapObj, Gender));
 
-%actual clusters for probe images
-probe_clusters_actual = zeros(probe_count, 1);
-for i = 1:probe_count
-    probe_clusters_actual(i,1) = clusters(ceil(i/2),1);
+%actual clusters for images
+image_clusters_actual = zeros(image_count, 1);
+for i = 1:image_count
+    image_clusters_actual(i,1) = clusters(ceil(i/3),1);
 end;
 
 %class with more members in actual clusters
-out = [valueSet.',histc(probe_clusters_actual(:),valueSet.')];
+out = [valueSet.',histc(image_clusters_actual(:),valueSet.')];
 more_members_class = ...
     out(floor(find(out == max(out(:,2)))/2), 1);
 less_members_class = ...
@@ -30,9 +30,9 @@ cluster1_member_indices = find(member_matrix(1,:));
 cluster2_member_indices = find(member_matrix(2,:));
 
 class1_member_indices = ...
-    find(probe_clusters_actual == more_members_class);
+    find(image_clusters_actual == more_members_class);
 class2_member_indices = ...
-    find(probe_clusters_actual == less_members_class);
+    find(image_clusters_actual == less_members_class);
 
 class1_in_cluster1 = ...
     sum(ismember(class1_member_indices, cluster1_member_indices));
@@ -63,15 +63,28 @@ cluster1_size = sum(cluster_matrix(:,1));
 cluster2_size = sum(cluster_matrix(:,2));
 
 %all pairs that can be chosen from all the samples
-all_pairs = nchoosek(probe_count, 2);   
+all_pairs = nchoosek(image_count, 2);   
 %all pairable samples from the 2 clusters
 all_positives = nchoosek(cluster1_size,2) + nchoosek(cluster2_size,2); 
 %all pairable samples of same class in same cluster
-TP = nchoosek(cluster_matrix(1,1), 2) + nchoosek(cluster_matrix(1,2), 2) ...
-    + nchoosek(cluster_matrix(2,1), 2) + nchoosek(cluster_matrix(2,2), 2);
+try
+    TP = nchoosek(cluster_matrix(1,1), 2) + ...
+        nchoosek(cluster_matrix(1,2), 2) +...
+        nchoosek(cluster_matrix(2,1), 2) + ...
+        nchoosek(cluster_matrix(2,2), 2);
+catch
+    TP = 0;
+    for i = 1:2
+        for j = 1:2
+            if cluster_matrix(i,j) >= 2
+                TP = TP + nchoosek(cluster_matrix(i,j), 2);
+            end;
+        end;
+    end;
+end;
 FP = all_positives - TP;    %all non-pairable samples of different classes in same cluster
 
-all_negatives = all_pairs - all_positives;
+%all_negatives = all_pairs - all_positives;
 FN = sum(prod(cluster_matrix, 2));
 
 precision = TP/(TP + FP);
