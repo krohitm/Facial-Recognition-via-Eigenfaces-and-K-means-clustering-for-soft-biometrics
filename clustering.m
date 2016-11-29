@@ -35,3 +35,12 @@ for i=10:10:100     %clusters for various no. of PCs
         Kcentroids,clusterCount, sample_count);
     FMI(i/10,1) = Fmeasure(member_matrix);
 end;
+
+axes1 = axes('Parent',figure);
+set(gca,'fontsize',23);
+hold on;
+plot(1:size(WCSS,1),WCSS, 'LineWidth',2);
+title('Within-Cluster-Sum of Squares for different number of principal components');
+xlabel('Number of Principal Components');
+ylabel('Within-Custer-Sum of Squares');
+set(axes1,'XTickLabel',{'10','20','30','40','50','60','70','80','90','100'});

@@ -29,7 +29,9 @@ for i=1:size(result,2)
 end;
 
 axes1 = axes('Parent',figure);
-plot(1:size(accuracy,1),accuracy);
+set(gca,'fontsize',23);
+hold on;
+plot(1:size(accuracy,1),accuracy, 'LineWidth',2);
 title('Recognition rate for different principal components');
 xlabel('Number of Principal Components');
 ylabel('Recognition Rate');

@@ -10,6 +10,8 @@ V = fliplr(V);
 for i=1:3
     imageDemo = reshape(V(:,i), [50,50]);
     figure;
+    %set(gca,'fontsize',18);
+    %hold on;
     imagesc(imageDemo);
     title({strcat('Principal component',num2str(i))});
     colorbar
